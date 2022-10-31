@@ -18,11 +18,11 @@ class HomeScreen extends StatelessWidget {
                 Expanded(
                   child: controller.loading
                       ? const CircularProgressIndicator()
-                      : controller.products.isEmpty
-                          ? const Text("No products")
-                          : ListView.builder(
-                              itemBuilder: (c, i) => ProductCard(
-                                  productEntity: controller.products[i])),
+                      : ListView.separated(
+                          itemCount: controller.products.length,
+                          separatorBuilder: (c, i) => const Divider(),
+                          itemBuilder: (c, i) => ProductCard(
+                              productEntity: controller.products[i])),
                 ),
                 ElevatedButton(
                     onPressed: controller.onButtonPressed,

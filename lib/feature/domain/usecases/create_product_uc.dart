@@ -6,7 +6,7 @@ class CreateProductUseCase {
 
   CreateProductUseCase(this._localRepository);
 
-  void call(ProductEntity productEntity) {
-    _localRepository.createProduct(productEntity);
+  Future<bool> call(ProductEntity productEntity) {
+    return _localRepository.createProduct(productEntity);
   }
 }

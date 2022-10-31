@@ -6,7 +6,7 @@ import 'package:product_crud_demo/injection_container.dart' as di;
 class AddProductScreenController extends GetxController {
   final CreateProductUseCase _createProductUseCase = di.sl();
 
-  void onSubmit(ProductEntity productEntity) {
-    _createProductUseCase(productEntity);
+  Future<bool> onSubmit(ProductEntity productEntity) {
+    return _createProductUseCase(productEntity);
   }
 }

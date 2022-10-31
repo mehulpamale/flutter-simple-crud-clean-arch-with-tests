@@ -49,7 +49,15 @@ class _ProductFormState extends State<ProductForm> {
             const Text("industrial")
           ],
         ),
-        ElevatedButton(onPressed: c.onSubmit, child: const Text("Add"))
+        ElevatedButton(
+            onPressed: () {
+              c.onSubmit();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Your Text"),
+                duration: Duration(milliseconds: 300),
+              ));
+            },
+            child: const Text("Add"))
       ])),
     );
   }

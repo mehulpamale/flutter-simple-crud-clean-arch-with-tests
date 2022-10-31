@@ -2,7 +2,9 @@ import 'package:hive/hive.dart';
 import 'package:product_crud_demo/enums/product_category.dart';
 import 'package:product_crud_demo/feature/domain/entities/product_enitity.dart';
 
-@HiveType(typeId: 1)
+part 'product_hive_model.g.dart';
+
+@HiveType(typeId: 0)
 class ProductHiveModel extends HiveObject {
   @HiveField(0)
   String id;
@@ -11,7 +13,7 @@ class ProductHiveModel extends HiveObject {
   @HiveField(2)
   String createdAt;
   @HiveField(3)
-  ProductCategory category;
+  String category;
   @HiveField(4)
   String? description;
 
@@ -25,7 +27,7 @@ class ProductHiveModel extends HiveObject {
         description: description,
         id: id,
         name: name,
-        category: category,
+        category: category.name,
         createdAt: createdAt);
   }
 
@@ -34,7 +36,8 @@ class ProductHiveModel extends HiveObject {
       description: description,
       id: id,
       name: name,
-      category: category,
+      category: ProductCategory.values
+          .firstWhere((element) => element.name == category),
       createdAt: createdAt,
     );
   }

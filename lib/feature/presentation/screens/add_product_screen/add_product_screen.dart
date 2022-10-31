@@ -12,7 +12,7 @@ class AddProductScreen extends StatelessWidget {
     return GetBuilder<AddProductScreenController>(
         init: AddProductScreenController(),
         builder: (controller) => Scaffold(
-            appBar: AppBar(title: const Text("Products")),
+            appBar: AppBar(title: const Text("Add Product")),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ProductForm(

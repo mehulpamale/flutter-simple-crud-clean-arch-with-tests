@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:product_crud_demo/feature/data/remote/hive/models/product_hive_model.dart';
 import 'package:product_crud_demo/feature/presentation/screens/home_screen/home_screen.dart';
 
 import 'injection_container.dart' as di;
 
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(ProductHiveModelAdapter());
   await Hive.openBox("products");
   await di.init();
   runApp(const MyApp());
