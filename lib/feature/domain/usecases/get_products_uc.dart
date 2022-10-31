@@ -1,11 +1,12 @@
+import 'package:product_crud_demo/feature/domain/entities/product_enitity.dart';
 import 'package:product_crud_demo/feature/domain/repositories/local_repository.dart';
 
-class GetProductUseCase {
+class GetProductsUseCase {
   final LocalRepository _localRepository;
 
-  GetProductUseCase(this._localRepository);
+  GetProductsUseCase(this._localRepository);
 
-  void call() {
-    _localRepository.getProducts();
+  Future<List<ProductEntity>> call() {
+    return _localRepository.getProducts();
   }
 }
