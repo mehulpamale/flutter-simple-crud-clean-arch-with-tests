@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:product_crud_demo/enums/product_category.dart';
 import 'package:product_crud_demo/feature/domain/entities/product_enitity.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class ProductHiveModel extends HiveObject {
   @HiveField(0)
   String id;

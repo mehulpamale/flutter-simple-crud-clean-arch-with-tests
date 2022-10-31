@@ -12,12 +12,22 @@ class HomeScreen extends StatelessWidget {
         init: HomeScreenController(),
         builder: (controller) => Scaffold(
             appBar: AppBar(title: const Text("Products")),
-            body: controller.loading
-                ? const CircularProgressIndicator()
-                : controller.products.isEmpty
-                    ? Text("No products")
-                    : ListView.builder(
-                        itemBuilder: (c, i) => ProductCard(
-                            productEntity: controller.products[i]))));
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: controller.loading
+                      ? const CircularProgressIndicator()
+                      : controller.products.isEmpty
+                          ? const Text("No products")
+                          : ListView.builder(
+                              itemBuilder: (c, i) => ProductCard(
+                                  productEntity: controller.products[i])),
+                ),
+                ElevatedButton(
+                    onPressed: controller.onButtonPressed,
+                    child: const Text("Add Product"))
+              ],
+            )));
   }
 }
