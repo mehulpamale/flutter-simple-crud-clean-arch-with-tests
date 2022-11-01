@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:product_crud_demo/app_toast.dart';
 import 'package:product_crud_demo/feature/presentation/screens/home_screen/home_screen_controller.dart';
-import 'package:product_crud_demo/feature/presentation/widgets/ProductCard.dart';
+import 'package:product_crud_demo/feature/presentation/widgets/product_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
