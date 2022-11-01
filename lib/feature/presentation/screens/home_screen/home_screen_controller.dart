@@ -20,11 +20,11 @@ class HomeScreenController extends GetxController {
     log("fetchProducts");
     loading = true;
     _getProductsUseCase.call().then((value) {
+      loading = false;
       products = value;
+      update();
       onFetched?.call(products);
-      return loading = false;
     });
-    update();
   }
 
   Function(List<ProductEntity> products)? onFetched;
