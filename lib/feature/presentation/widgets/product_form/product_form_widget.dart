@@ -4,6 +4,7 @@ import 'package:product_crud_demo/app_toast.dart';
 import 'package:product_crud_demo/enums/product_category.dart';
 import 'package:product_crud_demo/feature/presentation/screens/home_screen/home_screen_controller.dart';
 import 'package:product_crud_demo/feature/presentation/widgets/product_form/product_form_controller.dart';
+import 'package:product_crud_demo/widget_keys.dart';
 
 import '../../../domain/entities/product_enitity.dart';
 
@@ -26,16 +27,19 @@ class _ProductFormState extends State<ProductForm> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(children: [
             TextFormField(
+              key: const Key(WidgetKeys.productFormNameTff),
               validator: c.nameValidator,
               decoration: const InputDecoration(labelText: "name"),
               controller: c.nameTEC,
             ),
             TextFormField(
+              key: const Key(WidgetKeys.productFormDescriptionTff),
               validator: c.descrValidator,
               decoration: const InputDecoration(labelText: "description"),
               controller: c.descriptionTEC,
             ),
             TextFormField(
+              key: const Key(WidgetKeys.productFormIdTff),
               validator: c.idValidator,
               decoration: const InputDecoration(labelText: "id"),
               controller: c.idTEC,
@@ -43,12 +47,14 @@ class _ProductFormState extends State<ProductForm> {
             Row(
               children: [
                 Radio(
+                  key: const Key(WidgetKeys.productFormRadioConsumer),
                   value: ProductCategory.consumer.name,
                   groupValue: c.category,
                   onChanged: c.onRadioChanged,
                 ),
                 const Text("consumer"),
                 Radio(
+                  key: const Key(WidgetKeys.productFormRadioIndustrial),
                   value: ProductCategory.industrial.name,
                   groupValue: c.category,
                   onChanged: c.onRadioChanged,
