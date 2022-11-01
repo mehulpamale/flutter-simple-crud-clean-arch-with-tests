@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:product_crud_demo/feature/domain/entities/product_enitity.dart';
 import 'package:product_crud_demo/feature/domain/usecases/get_products_uc.dart';
@@ -8,16 +10,28 @@ import '../add_product_screen/add_product_screen.dart';
 class HomeScreenController extends GetxController {
   List<ProductEntity> products = [];
   var loading = false;
-  final GetProductsUseCase getProductsUseCase = di.sl();
+  final GetProductsUseCase _getProductsUseCase = di.sl();
 
   void onButtonPressed() {
     Get.to(() => const AddProductScreen());
   }
 
-  @override
-  Future onReady() async {
+  void fetchProducts() {
+    log("fetchProducts");
     loading = true;
-    products = await getProductsUseCase.call();
-    loading = false;
+    _getProductsUseCase.call().then((value) {
+      products = value;
+      onFetched?.call(products);
+      return loading = false;
+    });
+    update();
+  }
+
+  Function(List<ProductEntity> products)? onFetched;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProducts();
   }
 }
