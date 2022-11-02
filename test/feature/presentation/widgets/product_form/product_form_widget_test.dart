@@ -17,11 +17,11 @@ void main() {
       expect(find.text("is required"), findsNothing);
     });
 
-    testWidgets("Id should not be empty", (WidgetTester tester) async {
+    testWidgets("Name should not be empty", (WidgetTester tester) async {
       await tester.pumpWidget(widgetToTest);
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
-      expect(find.text("Id is required"), findsOneWidget);
+      expect(find.text("Name is required"), findsOneWidget);
     });
 
     testWidgets("Description should not be empty", (WidgetTester tester) async {
@@ -31,11 +31,18 @@ void main() {
       expect(find.text("Description is required"), findsOneWidget);
     });
 
-    testWidgets("Name should not be empty", (WidgetTester tester) async {
+    testWidgets("Id should not be empty", (WidgetTester tester) async {
       await tester.pumpWidget(widgetToTest);
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
-      expect(find.text("Name is required"), findsOneWidget);
+      expect(find.text("Id is required"), findsOneWidget);
+    });
+
+    testWidgets("Category should not be empty", (WidgetTester tester) async {
+      await tester.pumpWidget(widgetToTest);
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+      expect(find.text("Category is required"), findsOneWidget);
     });
   });
 
@@ -46,14 +53,14 @@ void main() {
       ),
     );
 
-    testWidgets("Id should not be empty", (WidgetTester tester) async {
+    testWidgets("Name should not be empty", (WidgetTester tester) async {
       await tester.pumpWidget(widgetToTest);
       await tester.enterText(
-          find.byKey(const Key(WidgetKeys.productFormIdTff)), "Id");
+          find.byKey(const Key(WidgetKeys.productFormNameTff)), "Name");
       await tester.pumpAndSettle();
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
-      expect(find.text("Id is required"), findsNothing);
+      expect(find.text("Name is required"), findsNothing);
     });
 
     testWidgets("Description should not be empty", (WidgetTester tester) async {
@@ -67,14 +74,23 @@ void main() {
       expect(find.text("Description is required"), findsNothing);
     });
 
-    testWidgets("Name should not be empty", (WidgetTester tester) async {
+    testWidgets("Id should not be empty", (WidgetTester tester) async {
       await tester.pumpWidget(widgetToTest);
       await tester.enterText(
-          find.byKey(const Key(WidgetKeys.productFormNameTff)), "Name");
+          find.byKey(const Key(WidgetKeys.productFormIdTff)), "Id");
       await tester.pumpAndSettle();
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
-      expect(find.text("Name is required"), findsNothing);
+      expect(find.text("Id is required"), findsNothing);
+    });
+
+    testWidgets("Category should not be empty", (WidgetTester tester) async {
+      await tester.pumpWidget(widgetToTest);
+      await tester.tap(find.text("consumer"));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+      expect(find.text("Category is required"), findsNothing);
     });
   });
 }

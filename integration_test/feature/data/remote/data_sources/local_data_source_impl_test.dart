@@ -19,7 +19,8 @@ void main() {
           id: "id",
           name: "name",
           category: ProductCategory.industrial,
-          createdAt: DateTime.now().toString());
+          createdAt: DateTime.now().toString(),
+          description: "description");
       await localDataStore.createProduct(entity);
       var products = await localDataStore.getProducts();
       expect(products[0], entity);

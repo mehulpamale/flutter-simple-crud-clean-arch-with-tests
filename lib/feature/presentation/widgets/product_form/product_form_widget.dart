@@ -48,11 +48,12 @@ class _ProductFormState extends State<ProductForm> {
             ),
             FormBuilderRadioGroup(
               name: "category",
-              // decoration: InputDecoration(labelText: 'Category'),
+              decoration: const InputDecoration(labelText: 'Category'),
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(
                     errorText: "Category is required")
               ]),
+              onChanged: c.onRadioChanged,
               options: ProductCategory.values
                   .map((lang) => FormBuilderFieldOption(
                         value: lang.name,
