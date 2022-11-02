@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:product_crud_demo/app_toast.dart';
 import 'package:product_crud_demo/enums/product_category.dart';
@@ -44,23 +46,19 @@ class _ProductFormState extends State<ProductForm> {
               decoration: const InputDecoration(labelText: "id"),
               controller: c.idTEC,
             ),
-            Row(
-              children: [
-                Radio(
-                  key: const Key(WidgetKeys.productFormRadioConsumer),
-                  value: ProductCategory.consumer.name,
-                  groupValue: c.category,
-                  onChanged: c.onRadioChanged,
-                ),
-                const Text("consumer"),
-                Radio(
-                  key: const Key(WidgetKeys.productFormRadioIndustrial),
-                  value: ProductCategory.industrial.name,
-                  groupValue: c.category,
-                  onChanged: c.onRadioChanged,
-                ),
-                const Text("industrial")
-              ],
+            FormBuilderRadioGroup(
+              name: "category",
+              // decoration: InputDecoration(labelText: 'Category'),
+              validator: FormBuilderValidators.compose([
+                FormBuilderValidators.required(
+                    errorText: "Category is required")
+              ]),
+              options: ProductCategory.values
+                  .map((lang) => FormBuilderFieldOption(
+                        value: lang.name,
+                        child: Text(lang.name),
+                      ))
+                  .toList(growable: false),
             ),
             ElevatedButton(
                 onPressed: () {

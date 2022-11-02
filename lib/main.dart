@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:product_crud_demo/feature/data/remote/hive/models/product_hive_model.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: const [FormBuilderLocalizations.delegate],
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
