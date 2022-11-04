@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:product_crud_demo/feature/data/remote/hive/models/product_hive_model.dart';
+import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc.dart';
 import 'package:product_crud_demo/feature/presentation/screens/home_screen/home_screen.dart';
 
 import 'injection_container.dart' as di;
+import 'injection_container.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -27,7 +30,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      home: BlocProvider(
+          create: (context) => sl<ProductListBloc>(),
+          child: const HomeScreen()),
     );
   }
 }

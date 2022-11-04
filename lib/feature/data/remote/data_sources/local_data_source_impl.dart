@@ -15,10 +15,12 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<List<ProductEntity>> getProducts() {
-    var t = Future.value(mBox.values.map((e) {
-      var pe = (e as ProductHiveModel).toProductEntity();
-      return pe;
-    }).toList());
+    var t = Future.delayed(
+        const Duration(seconds: 1),
+        () => mBox.values.map((e) {
+              var pe = (e as ProductHiveModel).toProductEntity();
+              return pe;
+            }).toList());
     return t;
   }
 }

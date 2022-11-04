@@ -3,14 +3,14 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:product_crud_demo/feature/domain/entities/product_enitity.dart';
 import 'package:product_crud_demo/feature/domain/usecases/get_products_uc.dart';
-import 'package:product_crud_demo/injection_container.dart' as di;
+import 'package:product_crud_demo/injection_container.dart';
 
 import '../add_product_screen/add_product_screen.dart';
 
 class HomeScreenController extends GetxController {
   List<ProductEntity> products = [];
   var loading = false;
-  final GetProductsUseCase _getProductsUseCase = di.sl();
+  final GetProductsUseCase _getProductsUseCase = sl();
 
   void onButtonPressed() {
     Get.to(() => const AddProductScreen());

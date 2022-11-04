@@ -5,6 +5,7 @@ import 'package:product_crud_demo/feature/data/repositories/local_repository_imp
 import 'package:product_crud_demo/feature/domain/repositories/local_repository.dart';
 import 'package:product_crud_demo/feature/domain/usecases/create_product_uc.dart';
 import 'package:product_crud_demo/feature/domain/usecases/get_products_uc.dart';
+import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc.dart';
 
 GetIt sl = GetIt.instance;
 
@@ -20,4 +21,6 @@ Future init() async {
       () => CreateProductUseCase(sl.call()));
   sl.registerFactory<LocalRepositoryImpl>(() => LocalRepositoryImpl(sl.call()));
   sl.registerFactory<LocalDataSource>(() => LocalDataSourceImpl());
+
+  sl.registerFactory<ProductListBloc>(() => ProductListBloc(sl.call()));
 }
