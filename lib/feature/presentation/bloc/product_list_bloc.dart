@@ -13,6 +13,7 @@ class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
   ProductListBloc(this._getProductsUseCase) : super(ProductListInitial()) {
     on<ProductListRequested>((event, emit) async {
       try {
+        emit(ProductListLoading());
         var products = await _getProductsUseCase.call();
         emit(ProductListLoaded(products));
       } catch (e) {

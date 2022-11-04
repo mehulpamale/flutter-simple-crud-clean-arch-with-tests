@@ -20,34 +20,38 @@ class HomeScreen extends StatelessWidget {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Products"),
-          actions: [
-            IconButton(
-                onPressed: fetchProducts, icon: const Icon(Icons.refresh))
-          ],
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(child: BlocBuilder<ProductListBloc, ProductListState>(
-              builder: (context, state) {
-                if (state is ProductListLoaded) {
-                  return ListView.separated(
+      appBar: AppBar(
+        title: const Text("Products"),
+        actions: [
+          IconButton(onPressed: fetchProducts, icon: const Icon(Icons.refresh))
+        ],
+      ),
+      body: Column(
+        children: [
+          BlocBuilder<ProductListBloc, ProductListState>(
+            builder: (context, state) {
+              if (state is ProductListLoaded) {
+                return Expanded(
+                  child: ListView.separated(
                       itemCount: state.products.length,
                       separatorBuilder: (c, i) => const Divider(),
                       itemBuilder: (c, i) =>
-                          ProductCard(productEntity: state.products[i]));
-                } else if (state is ProductListLoading) {
-                  return const CircularProgressIndicator();
-                } else {
-                  return Container();
-                }
-              },
-            )),
-            ElevatedButton(
-                onPressed: onButtonPressed, child: const Text("Add Product"))
-          ],
-        ));
+                          ProductCard(productEntity: state.products[i])),
+                );
+              } else if (state is ProductListLoading) {
+                return const CircularProgressIndicator();
+              } else {
+                return Container();
+              }
+            },
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: onButtonPressed,
+        tooltip: "Add Product",
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
