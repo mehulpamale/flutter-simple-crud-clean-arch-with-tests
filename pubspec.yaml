@@ -17,6 +17,7 @@ dependencies:
   form_builder_validators: 8.3.0
   bloc: 8.1.0
   flutter_bloc: 8.1.1
+  mockito: 5.3.2
   flutter: 
     sdk: flutter
 
