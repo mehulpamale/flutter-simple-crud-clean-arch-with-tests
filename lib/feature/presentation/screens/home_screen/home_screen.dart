@@ -32,9 +32,8 @@ class HomeScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is ProductListLoaded) {
                 return Expanded(
-                  child: ListView.separated(
+                  child: ListView.builder(
                       itemCount: state.products.length,
-                      separatorBuilder: (c, i) => const Divider(),
                       itemBuilder: (c, i) =>
                           ProductCard(productEntity: state.products[i])),
                 );
