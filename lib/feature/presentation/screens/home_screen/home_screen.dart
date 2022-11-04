@@ -38,7 +38,8 @@ class HomeScreen extends StatelessWidget {
                           ProductCard(productEntity: state.products[i])),
                 );
               } else if (state is ProductListLoading) {
-                return const CircularProgressIndicator();
+                return const Expanded(
+                    child: Center(child: CircularProgressIndicator()));
               } else {
                 return Container();
               }
