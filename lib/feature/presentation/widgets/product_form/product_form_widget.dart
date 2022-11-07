@@ -4,8 +4,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:product_crud_demo/app_toast.dart';
 import 'package:product_crud_demo/enums/product_category.dart';
-import 'package:product_crud_demo/feature/presentation/screens/home_screen/home_screen_controller.dart';
-import 'package:product_crud_demo/feature/presentation/widgets/product_form/product_form_controller.dart';
+import 'package:product_crud_demo/feature/presentation/widgets/product_form/product_form_logic_holder.dart';
 import 'package:product_crud_demo/widget_keys.dart';
 
 import '../../../domain/entities/product_enitity.dart';
@@ -22,58 +21,54 @@ class ProductForm extends StatefulWidget {
 class _ProductFormState extends State<ProductForm> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: ProductFormController(widget.onSubmit),
-      builder: (c) => Form(
-          key: c.formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(children: [
-            TextFormField(
-              key: const Key(WidgetKeys.productFormNameTff),
-              validator: c.nameValidator,
-              decoration: const InputDecoration(labelText: "name"),
-              controller: c.nameTEC,
-            ),
-            TextFormField(
-              key: const Key(WidgetKeys.productFormDescriptionTff),
-              validator: c.descrValidator,
-              decoration: const InputDecoration(labelText: "description"),
-              controller: c.descriptionTEC,
-            ),
-            TextFormField(
-              key: const Key(WidgetKeys.productFormIdTff),
-              validator: c.idValidator,
-              decoration: const InputDecoration(labelText: "id"),
-              controller: c.idTEC,
-            ),
-            FormBuilderRadioGroup(
-              name: "category",
-              decoration: const InputDecoration(labelText: 'Category'),
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(
-                    errorText: "Category is required")
-              ]),
-              onChanged: c.onRadioChanged,
-              options: ProductCategory.values
-                  .map((lang) => FormBuilderFieldOption(
-                        value: lang.name,
-                        child: Text(lang.name),
-                      ))
-                  .toList(growable: false),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  if (!(c.formKey.currentState?.validate() ?? false)) {
-                    AppToast.showError("Please check form errors");
-                    return;
-                  }
-                  c.onSubmit();
-                  AppToast.showSuccess("Product added successfully");
-                  Get.find<HomeScreenController>().fetchProducts();
-                  Get.back();
-                },
-                child: const Text("Add"))
-          ])),
-    );
+    final c = ProductFormLogicHolder(widget.onSubmit);
+    return Form(
+        key: c.formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(children: [
+          TextFormField(
+            key: const Key(WidgetKeys.productFormNameTff),
+            validator: c.nameValidator,
+            decoration: const InputDecoration(labelText: "name"),
+            controller: c.nameTEC,
+          ),
+          TextFormField(
+            key: const Key(WidgetKeys.productFormDescriptionTff),
+            validator: c.descrValidator,
+            decoration: const InputDecoration(labelText: "description"),
+            controller: c.descriptionTEC,
+          ),
+          TextFormField(
+            key: const Key(WidgetKeys.productFormIdTff),
+            validator: c.idValidator,
+            decoration: const InputDecoration(labelText: "id"),
+            controller: c.idTEC,
+          ),
+          FormBuilderRadioGroup(
+            name: "category",
+            decoration: const InputDecoration(labelText: 'Category'),
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(errorText: "Category is required")
+            ]),
+            onChanged: c.onRadioChanged,
+            options: ProductCategory.values
+                .map((lang) => FormBuilderFieldOption(
+                      value: lang.name,
+                      child: Text(lang.name),
+                    ))
+                .toList(growable: false),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                if (!(c.formKey.currentState?.validate() ?? false)) {
+                  AppToast.showError("Please check form errors");
+                  return;
+                }
+                c.onSubmit();
+                AppToast.showSuccess("Product added successfully");
+                Get.back();
+              },
+              child: const Text("Add"))
+        ]));
   }
 }

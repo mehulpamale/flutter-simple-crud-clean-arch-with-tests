@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc.dart';
+import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc/product_list_bloc.dart';
 
 import '../../widgets/product_card.dart';
 import '../add_product_screen/add_product_screen.dart';
