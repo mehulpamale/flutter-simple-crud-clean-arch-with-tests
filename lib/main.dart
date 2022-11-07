@@ -4,6 +4,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:product_crud_demo/feature/data/remote/hive/models/product_hive_model.dart';
+import 'package:product_crud_demo/feature/presentation/bloc/product_form_bloc/product_form_bloc.dart';
 import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc/product_list_bloc.dart';
 import 'package:product_crud_demo/feature/presentation/screens/home_screen/home_screen.dart';
 
@@ -24,15 +25,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      localizationsDelegates: const [FormBuilderLocalizations.delegate],
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProductListBloc>(
+            create: (context) => sl<ProductListBloc>()),
+        BlocProvider<ProductFormBloc>(
+            create: (context) => sl<ProductFormBloc>()),
+      ],
+      child: GetMaterialApp(
+        title: 'Flutter Demo',
+        localizationsDelegates: const [FormBuilderLocalizations.delegate],
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomeScreen(),
       ),
-      home: BlocProvider(
-          create: (context) => sl<ProductListBloc>(),
-          child: const HomeScreen()),
     );
   }
 }
