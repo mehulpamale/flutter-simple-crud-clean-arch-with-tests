@@ -5,7 +5,7 @@ import 'package:product_crud_demo/feature/data/repositories/local_repository_imp
 import 'package:product_crud_demo/feature/domain/repositories/local_repository.dart';
 import 'package:product_crud_demo/feature/domain/usecases/create_product_uc.dart';
 import 'package:product_crud_demo/feature/domain/usecases/get_products_uc.dart';
-import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc.dart';
+import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc/product_list_bloc.dart';
 
 GetIt sl = GetIt.instance;
 
