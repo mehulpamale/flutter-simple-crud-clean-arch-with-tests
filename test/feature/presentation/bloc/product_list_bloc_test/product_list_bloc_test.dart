@@ -5,9 +5,10 @@ import 'package:mockito/mockito.dart';
 import 'package:product_crud_demo/enums/product_category.dart';
 import 'package:product_crud_demo/feature/domain/entities/product_enitity.dart';
 import 'package:product_crud_demo/feature/domain/usecases/get_products_uc.dart';
-import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc.dart';
+import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc/product_list_bloc.dart';
 
 import 'product_list_bloc_test.mocks.dart';
+
 
 @GenerateNiceMocks([MockSpec<GetProductsUseCase>()])
 void main() async {

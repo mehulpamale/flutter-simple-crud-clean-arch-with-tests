@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:product_crud_demo/feature/domain/usecases/get_products_uc.dart';
 
-import '../../domain/entities/product_enitity.dart';
+import '../../../domain/entities/product_enitity.dart';
 
 part 'product_list_event.dart';
 part 'product_list_state.dart';
