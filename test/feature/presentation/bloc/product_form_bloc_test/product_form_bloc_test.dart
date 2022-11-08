@@ -21,8 +21,7 @@ void main() async {
 
   group("positive", () {
     test("should be ProductFormInitial at the beginning", () {
-      expect(ProductFormBloc(createProductUseCase).state,
-          isA<ProductFormInitial>());
+      expect(ProductFormBloc(createProductUseCase).state, ProductFormInitial());
     });
 
     blocTest(

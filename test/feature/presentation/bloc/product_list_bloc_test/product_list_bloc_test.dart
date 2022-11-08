@@ -9,7 +9,6 @@ import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc/pr
 
 import 'product_list_bloc_test.mocks.dart';
 
-
 @GenerateNiceMocks([MockSpec<GetProductsUseCase>()])
 void main() async {
   var createProductUseCase = MockGetProductsUseCase();
@@ -22,14 +21,13 @@ void main() async {
 
   group("positive", () {
     test("should be ProductFormInitial at the beginning", () {
-      expect(ProductListBloc(createProductUseCase).state,
-          isA<ProductListInitial>());
+      expect(ProductListBloc(createProductUseCase).state, ProductListInitial());
     });
 
     blocTest(
         "emits [ProductListLoading(), ProductListLoaded([entity])] on ProductListRequested()",
-        setUp: () =>
-            when(createProductUseCase.call()).thenAnswer((_) async => Future.value([entity])),
+        setUp: () => when(createProductUseCase.call())
+            .thenAnswer((_) async => Future.value([entity])),
         build: () => ProductListBloc(createProductUseCase),
         act: (bloc) {
           bloc.add(
