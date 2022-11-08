@@ -12,7 +12,7 @@ import 'product_list_bloc_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<GetProductsUseCase>()])
 void main() async {
-  var mock = MockGetProductsUseCase();
+  var createProductUseCase = MockGetProductsUseCase();
 
   var entity = ProductEntity(
       id: "id",
@@ -21,14 +21,16 @@ void main() async {
       createdAt: DateTime.now().toString());
 
   group("positive", () {
-    blocTest("should have nothing at beginning",
-        build: () => ProductListBloc(mock), expect: () => []);
+    test("should be ProductFormInitial at the beginning", () {
+      expect(ProductListBloc(createProductUseCase).state,
+          isA<ProductListInitial>());
+    });
 
     blocTest(
         "emits [ProductListLoading(), ProductListLoaded([entity])] on ProductListRequested()",
         setUp: () =>
-            when(mock.call()).thenAnswer((_) async => Future.value([entity])),
-        build: () => ProductListBloc(mock),
+            when(createProductUseCase.call()).thenAnswer((_) async => Future.value([entity])),
+        build: () => ProductListBloc(createProductUseCase),
         act: (bloc) {
           bloc.add(
             ProductListRequested(),
@@ -42,9 +44,9 @@ void main() async {
 
   group("negative", () {
     blocTest("emits [ProductListError] on error",
-        setUp: () => when(mock.call()).thenThrow(Error()),
+        setUp: () => when(createProductUseCase.call()).thenThrow(Error()),
         build: () {
-          return ProductListBloc(mock);
+          return ProductListBloc(createProductUseCase);
         },
         act: (bloc) => bloc.add(
               ProductListRequested(),

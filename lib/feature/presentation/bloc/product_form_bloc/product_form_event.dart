@@ -10,5 +10,5 @@ class ProductFormSubmitRequested extends ProductFormEvent {
   const ProductFormSubmitRequested(this.product);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [product];
 }

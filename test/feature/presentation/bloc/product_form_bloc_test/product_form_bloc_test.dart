@@ -11,7 +11,7 @@ import 'product_form_bloc_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<CreateProductUseCase>()])
 void main() async {
-  var mock = MockCreateProductUseCase();
+  var createProductUseCase = MockCreateProductUseCase();
 
   var entity = ProductEntity(
       id: "id",
@@ -20,14 +20,16 @@ void main() async {
       createdAt: DateTime.now().toString());
 
   group("positive", () {
-    blocTest("should have nothing at beginning",
-        build: () => ProductFormBloc(mock), expect: () => []);
+    test("should be ProductFormInitial at the beginning", () {
+      expect(ProductFormBloc(createProductUseCase).state,
+          isA<ProductFormInitial>());
+    });
 
     blocTest(
         "emits [ProductFormLoading(), ProductFormLoaded([entity])] on ProductFormSubmitRequested()",
-        setUp: () =>
-            when(mock.call(entity)).thenAnswer((_) async => Future.value(true)),
-        build: () => ProductFormBloc(mock),
+        setUp: () => when(createProductUseCase.call(entity))
+            .thenAnswer((_) async => Future.value(true)),
+        build: () => ProductFormBloc(createProductUseCase),
         act: (bloc) {
           bloc.add(
             ProductFormSubmitRequested(entity),
@@ -39,9 +41,9 @@ void main() async {
 
   group("negative", () {
     blocTest("emits [ProductFormError] on error",
-        setUp: () => when(mock.call(entity)).thenThrow(Error()),
+        setUp: () => when(createProductUseCase.call(entity)).thenThrow(Error()),
         build: () {
-          return ProductFormBloc(mock);
+          return ProductFormBloc(createProductUseCase);
         },
         act: (bloc) => bloc.add(
               ProductFormSubmitRequested(entity),
