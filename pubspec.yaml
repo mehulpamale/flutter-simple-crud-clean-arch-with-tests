@@ -19,6 +19,7 @@ dependencies:
   flutter_bloc: 8.1.1
   mockito: 5.3.2
   bloc_test: any
+  mocktail: 0.3.0
   flutter: 
     sdk: flutter
 
