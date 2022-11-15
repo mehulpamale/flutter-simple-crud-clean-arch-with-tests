@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
 import 'package:product_crud_demo/feature/presentation/widgets/product_form/product_form_widget.dart';
 import 'package:product_crud_demo/widget_keys.dart';
 
@@ -47,11 +50,8 @@ void main() {
   });
 
   group("product form validation test -- positive tests", () {
-    Widget widgetToTest = MaterialApp(
-      home: Scaffold(
-        body: ProductForm(onSubmit: (_) {}),
-      ),
-    );
+    Completer completer = Completer();
+    Widget widgetToTest = GetMaterialApp(home: Material(child: ProductForm(onSubmit: (_) {})));
 
     testWidgets("Name should not be empty", (WidgetTester tester) async {
       await tester.pumpWidget(widgetToTest);
