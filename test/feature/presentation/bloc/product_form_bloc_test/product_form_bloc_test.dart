@@ -7,6 +7,7 @@ import 'package:product_crud_demo/feature/domain/entities/product_enitity.dart';
 import 'package:product_crud_demo/feature/domain/usecases/create_product_uc.dart';
 import 'package:product_crud_demo/feature/presentation/bloc/product_form_bloc/product_form_bloc.dart';
 
+import '../../../../test_config/objects.dart';
 import 'product_form_bloc_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<CreateProductUseCase>()])
@@ -39,7 +40,7 @@ void main() async {
   });
 
   group("negative", () {
-    blocTest("emits [ProductFormError] on error",
+    blocTest("emits [ProductFormError] on error due to usecase returning false",
         setUp: () => when(createProductUseCase.call(entity)).thenThrow(Error()),
         build: () {
           return ProductFormBloc(createProductUseCase);
@@ -48,5 +49,21 @@ void main() async {
               ProductFormSubmitRequested(entity),
             ),
         expect: () => [isA<ProductFormSubmitting>(), isA<ProductFormError>()]);
+  });
+
+  group("negative", () {
+    blocTest("emits [ProductFormError] on error due to usecase throwing error",
+        setUp: () => when(createProductUseCase.call(entity))
+            .thenAnswer((_) async => false),
+        build: () {
+          return ProductFormBloc(createProductUseCase);
+        },
+        act: (bloc) => bloc.add(
+              ProductFormSubmitRequested(entity),
+            ),
+        expect: () => [
+              ProductFormSubmitting(productEntity),
+              ProductFormError(Error()),
+            ]);
   });
 }

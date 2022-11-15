@@ -51,7 +51,8 @@ void main() {
 
   group("product form validation test -- positive tests", () {
     Completer completer = Completer();
-    Widget widgetToTest = GetMaterialApp(home: Material(child: ProductForm(onSubmit: (_) {})));
+    Widget widgetToTest = GetMaterialApp(
+        home: Material(child: ProductForm(onSubmit: completer.complete)));
 
     testWidgets("Name should not be empty", (WidgetTester tester) async {
       await tester.pumpWidget(widgetToTest);
@@ -91,6 +92,21 @@ void main() {
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
       expect(find.text("Category is required"), findsNothing);
+    });
+
+    testWidgets("positive: successfully submit the form", (widgetTester) async {
+      await widgetTester.pumpWidget(widgetToTest);
+      await widgetTester.enterText(
+          find.byKey(const Key(WidgetKeys.productFormNameTff)), "Name");
+      await widgetTester.enterText(
+          find.byKey(const Key(WidgetKeys.productFormDescriptionTff)),
+          "Description");
+      await widgetTester.enterText(
+          find.byKey(const Key(WidgetKeys.productFormIdTff)), "Id");
+      await widgetTester.tap(find.text("consumer"));
+      await widgetTester.tap(find.byType(ElevatedButton));
+      await widgetTester.pumpAndSettle();
+      expectLater(completer.isCompleted, true);
     });
   });
 }

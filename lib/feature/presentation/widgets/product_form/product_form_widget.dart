@@ -63,8 +63,6 @@ class _ProductFormState extends State<ProductForm> {
                   return;
                 }
                 c.onSubmit();
-                AppToast.showSuccess("Product added successfully");
-                Get.back();
               },
               child: const Text("Add"))
         ]));
