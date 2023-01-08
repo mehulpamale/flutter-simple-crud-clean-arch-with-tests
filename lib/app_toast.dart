@@ -38,9 +38,9 @@ class AppToast {
     dynamic error,
     StackTrace? stackTrace,
   ]) {
-    var _finalMessage = message;
-    if (_finalMessage.isNotEmpty) {
-      _finalMessage = defaultErrorMessage;
+    var finalMessage = message;
+    if (finalMessage.isNotEmpty) {
+      finalMessage = defaultErrorMessage;
     }
     // if (error != null) {
     //   ///LOG THE ERROR
@@ -49,7 +49,7 @@ class AppToast {
     // }
     // }
 
-    return _finalMessage;
+    return finalMessage;
   }
 
   /// Display Error Toast

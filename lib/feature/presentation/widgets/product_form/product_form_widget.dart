@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:get/get.dart';
 import 'package:product_crud_demo/app_toast.dart';
 import 'package:product_crud_demo/enums/product_category.dart';
 import 'package:product_crud_demo/feature/presentation/widgets/product_form/product_form_logic_holder.dart';

@@ -1,29 +1,26 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:product_crud_demo/feature/domain/usecases/get_products_uc.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../injection_container.dart';
 import '../../../domain/entities/product_enitity.dart';
 
 part 'product_list_event.dart';
 part 'product_list_state.dart';
 
 class ProductListBloc extends Bloc<ProductListEvent, ProductListState> {
-  final GetProductsUseCase _getProductsUseCase;
-
-  ProductListBloc(this._getProductsUseCase) : super(ProductListInitial()) {
+  ProductListBloc() : super(ProductListInitial()) {
     on<ProductListEvent>((event, emit) async {
-      print("event: $event");
+      debugPrint("event: $event");
     });
 
     on<ProductListRequested>((event, emit) async {
       emit(ProductListLoading());
       try {
-        var products = await _getProductsUseCase.call();
+        var products = await getProductsUseCase();
         emit(ProductListLoaded(products));
       } catch (e) {
-        print(e.toString());
+        debugPrint(e.toString());
         emit(ProductListError(e as Error));
       }
     });

@@ -19,6 +19,10 @@ class HomeScreen extends StatelessWidget {
       context.read<ProductListBloc>().add(ProductListRequested());
     }
 
+    if (context.read<ProductListBloc>().state is ProductListInitial) {
+      fetchProducts();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Products"),

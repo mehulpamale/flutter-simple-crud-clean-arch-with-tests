@@ -33,7 +33,7 @@ class ProductFormLogicHolder extends GetxController {
   var formKey = GlobalKey<FormState>();
 
   void onRadioChanged(Object? o) {
-    log("o: ${o}");
+    log("o: $o");
     category = o as String;
     update();
   }

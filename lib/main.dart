@@ -9,7 +9,6 @@ import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc/pr
 import 'package:product_crud_demo/feature/presentation/screens/home_screen/home_screen.dart';
 
 import 'injection_container.dart' as di;
-import 'injection_container.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -28,9 +27,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ProductListBloc>(
-            create: (context) => sl<ProductListBloc>()),
+            create: (context) => ProductListBloc()),
         BlocProvider<ProductFormBloc>(
-            create: (context) => sl<ProductFormBloc>()),
+            create: (context) => ProductFormBloc()),
       ],
       child: GetMaterialApp(
         title: 'Flutter Demo',

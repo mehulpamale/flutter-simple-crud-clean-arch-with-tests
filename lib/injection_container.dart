@@ -5,10 +5,8 @@ import 'package:product_crud_demo/feature/data/repositories/local_repository_imp
 import 'package:product_crud_demo/feature/domain/repositories/local_repository.dart';
 import 'package:product_crud_demo/feature/domain/usecases/create_product_uc.dart';
 import 'package:product_crud_demo/feature/domain/usecases/get_products_uc.dart';
-import 'package:product_crud_demo/feature/presentation/bloc/product_form_bloc/product_form_bloc.dart';
-import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc/product_list_bloc.dart';
 
-GetIt sl = GetIt.instance;
+GetIt getIt = GetIt.instance;
 
 Future init() async {
 /*  Get.lazyPut(() => GetProductsUseCase());
@@ -16,13 +14,13 @@ Future init() async {
   Get.lazyPut(() => LocalRepositoryImpl());
   Get.lazyPut(() => LocalDataSourceImpl());*/
 
-  sl.registerFactory<LocalRepository>(() => LocalRepositoryImpl(sl.call()));
-  sl.registerFactory<GetProductsUseCase>(() => GetProductsUseCase(sl.call()));
-  sl.registerFactory<CreateProductUseCase>(
-      () => CreateProductUseCase(sl.call()));
-  sl.registerFactory<LocalRepositoryImpl>(() => LocalRepositoryImpl(sl.call()));
-  sl.registerFactory<LocalDataSource>(() => LocalDataSourceImpl());
-
-  sl.registerFactory<ProductListBloc>(() => ProductListBloc(sl.call()));
-  sl.registerFactory<ProductFormBloc>(() => ProductFormBloc(sl.call()));
+  getIt.registerFactory<LocalDataSource>(() => LocalDataSourceImpl());
+  getIt.registerFactory<LocalRepository>(() => LocalRepositoryImpl());
+  getIt.registerFactory<GetProductsUseCase>(() => GetProductsUseCase());
+  getIt.registerFactory<CreateProductUseCase>(() => CreateProductUseCase());
 }
+
+final LocalRepository localRepository = getIt.get();
+final GetProductsUseCase getProductsUseCase = getIt.get();
+final CreateProductUseCase createProductUseCase = getIt.get();
+final LocalDataSource localDataSource = getIt.get();
