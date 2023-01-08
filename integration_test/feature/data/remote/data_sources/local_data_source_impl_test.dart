@@ -4,6 +4,7 @@ import 'package:product_crud_demo/enums/product_category.dart';
 import 'package:product_crud_demo/feature/data/remote/data_sources/local_data_source_impl.dart';
 import 'package:product_crud_demo/feature/data/remote/hive/models/product_hive_model.dart';
 import 'package:product_crud_demo/feature/domain/entities/product_enitity.dart';
+import 'package:product_crud_demo/injection_container.dart';
 
 void main() {
   group("LocalDataSourceImpl test", () {
@@ -12,6 +13,7 @@ void main() {
       Hive.registerAdapter(ProductHiveModelAdapter());
       await Hive.openBox("products");
     });
+    tearDown(() => getIt.reset());
 
     test("LocalDataSourceImpl should create product", () async {
       var localDataStore = LocalDataSourceImpl();

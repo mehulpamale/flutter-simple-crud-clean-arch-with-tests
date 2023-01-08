@@ -14,6 +14,8 @@ void main() {
     getIt.registerSingleton<LocalRepository>(LocalRepositoryImpl());
   });
 
+  tearDown(() => getIt.reset());
+ 
   test("should create and get the products", () async {
     when(() => localDataSource.createProduct(productEntity)).thenAnswer(
       (realInvocation) async => true,
