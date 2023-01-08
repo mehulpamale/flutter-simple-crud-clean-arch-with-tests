@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get/get.dart';
+import 'package:mobx/mobx.dart';
 import 'package:product_crud_demo/feature/presentation/bloc/product_list_bloc/product_list_bloc.dart';
+import 'package:product_crud_demo/feature/presentation/stores/app_store.dart';
 
 import '../../widgets/product_card.dart';
 import '../add_product_screen/add_product_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  final _productListStore = ProductListStore();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,9 @@ class HomeScreen extends StatelessWidget {
     }
 
     void fetchProducts() {
-      context.read<ProductListBloc>().add(ProductListRequested());
+      // context.read<ProductListBloc>().add(ProductListRequested());
+      _productListStore.clearRecords();
+      _productListStore.fetchProducts();
     }
 
     if (context.read<ProductListBloc>().state is ProductListInitial) {
@@ -32,16 +39,18 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          BlocBuilder<ProductListBloc, ProductListState>(
-            builder: (context, state) {
-              if (state is ProductListLoaded) {
+          Observer(
+            builder: (context) {
+              if (_productListStore.records?.status == FutureStatus.fulfilled) {
+                final records = _productListStore.records!.value!;
                 return Expanded(
                   child: ListView.builder(
-                      itemCount: state.products.length,
-                      itemBuilder: (c, i) =>
-                          ProductCard(productEntity: state.products[i])),
+                      itemCount: records.length,
+                      itemBuilder: (c, i) => ProductCard(
+                          productEntity: records[i])),
                 );
-              } else if (state is ProductListLoading) {
+              } else if (_productListStore.records?.status ==
+                  FutureStatus.pending) {
                 return const Expanded(
                     child: Center(child: CircularProgressIndicator()));
               } else {
